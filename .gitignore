@@ -1,0 +1,8 @@
+Library
+Logs
+Temp
+*.sln
+*.csproj
+.vs
+obj
+UserSettings
