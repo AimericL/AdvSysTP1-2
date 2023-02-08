@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,18 +8,33 @@ public class PlayerController : MonoBehaviour
     private float m_Speed = 10.0f;
     private Rigidbody2D m_Body;
     private Animator m_Animator;
-    // Start is called before the first frame update
+    private float m_BoundLeft = -25;
+    private float m_BoundRight = 100;
+
     void Start()
     {
         m_Body = GetComponent<Rigidbody2D>();
         m_Animator = GetComponentInChildren<Animator>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         Running();
+        CheckBound();
     }
+
+    private void CheckBound()
+    {
+        if (transform.position.x < m_BoundLeft)
+        {
+            transform.position = new Vector3(m_BoundLeft,transform.position.y,transform.position.z);
+        }
+        if (transform.position.x > m_BoundRight)
+        {
+            transform.position = new Vector3(m_BoundRight, transform.position.y, transform.position.z);
+        }
+    }
+
     private void Running()
     {
         float HorizontalAxis = Input.GetAxis("Horizontal");

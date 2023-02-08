@@ -8,14 +8,13 @@ public class Background : MonoBehaviour
     private float m_SpriteLenght;
     [Header("Background Speed")]
     [SerializeField] private float m_BackgroundSpeed;
-    // Start is called before the first frame update
+   
     void Start()
     {
         m_StartPosition = transform.position.x;
         m_SpriteLenght = GetComponent<SpriteRenderer>().bounds.size.x;
     }
 
-    // Update is called once per frame
     void LateUpdate()
     {
         float _distance = Camera.main.transform.position.x * m_BackgroundSpeed;
