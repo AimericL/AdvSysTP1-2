@@ -8,6 +8,9 @@ public class PlayerController : MonoBehaviour
     private float m_Speed = 10.0f;
     private Rigidbody2D m_Body;
     private Animator m_Animator;
+    public Action<LevelsData> m_OnLevelTrigger;
+    public Action<LevelsData> m_OnLevelTriggerExit;
+
     private float m_BoundLeft = -25;
     private float m_BoundRight = 100;
 
@@ -60,5 +63,16 @@ public class PlayerController : MonoBehaviour
         Vector3 Scale = transform.localScale;
         Scale.x = Mathf.Sign(m_Body.velocity.x);
         transform.localScale = Scale;
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        LevelsData data = collision.GetComponent<LevelSelection>().m_LevelData;
+        m_OnLevelTrigger?.Invoke(data);
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        LevelsData data = collision.GetComponent<LevelSelection>().m_LevelData;
+        m_OnLevelTriggerExit?.Invoke(data);
     }
 }

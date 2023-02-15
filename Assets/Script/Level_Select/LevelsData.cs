@@ -5,14 +5,8 @@ using UnityEngine;
 [CreateAssetMenu]
 public class LevelsData : ScriptableObject
 {
-  [System.Serializable]
-  
-  public struct Level
-    {
         public string Name;
-        public string Descripton;
-        public Sprite StarIcon;
+        public List<string> DescriptonText;
+        public List<Sprite> StarIcon;
         public string SceneName;
-    }
-    public List<Level> Levels = new List<Level>();
 }
