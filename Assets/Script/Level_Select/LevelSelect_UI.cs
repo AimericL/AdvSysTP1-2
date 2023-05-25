@@ -12,11 +12,15 @@ public class LevelSelect_UI : MonoBehaviour
     [SerializeField] private Image m_LevelStar;
     [SerializeField] private Text m_LevelDescription;
     private string m_LevelPath;
+    private int m_IndexDes;
+    private int m_Lenght;
+    private Coroutine m_TypeWritter;
 
     private void Awake()
     {
         m_Player = GameObject.Find("Player").GetComponent<PlayerController>();
         m_Player.m_OnLevelTrigger = PlayerOnPortal;
+        m_Player.m_OnLevelTriggerUpdate = UpdateUI;
         m_Player.m_OnLevelTriggerExit = PlayerExitPortal;
     }
 
@@ -25,18 +29,39 @@ public class LevelSelect_UI : MonoBehaviour
     {
         m_LevelName.text = data.Name;
         m_LevelStar.sprite = data.StarIcon[0];
-        m_LevelDescription.text = data.DescriptonText[0];
+        m_IndexDes = 0;
+        m_Lenght = data.DescriptonText.Count - 1;
+        //m_TypeWritter = StartCoroutine(TypeText());
         m_LevelPath = data.SceneName;
         m_LevelSelector.SetActive(true);
     }
 
-    private void PlayerExitPortal(LevelsData data)
+    private void UpdateUI(LevelsData data)
+    {
+        m_LevelDescription.text = data.DescriptonText[m_IndexDes];
+    }
+
+    private void PlayerExitPortal()
     {
         m_LevelSelector.SetActive(false);
     }
 
+    //private IEnumerator TypeText()
+    //{
+
+        //yield return;
+    //}
+
     public void OnStartLevel()
     {
         SceneManager.LoadScene(m_LevelPath);
+    }
+
+    public void OnDescriptionTextButton()
+    {
+        if ( m_IndexDes < m_Lenght)
+        {
+            m_IndexDes += 1;
+        }
     }
 }

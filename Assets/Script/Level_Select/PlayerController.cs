@@ -9,7 +9,8 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D m_Body;
     private Animator m_Animator;
     public Action<LevelsData> m_OnLevelTrigger;
-    public Action<LevelsData> m_OnLevelTriggerExit;
+    public Action<LevelsData> m_OnLevelTriggerUpdate;
+    public Action m_OnLevelTriggerExit;
 
     private float m_BoundLeft = -25;
     private float m_BoundRight = 100;
@@ -23,19 +24,6 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         Running();
-        CheckBound();
-    }
-
-    private void CheckBound()
-    {
-        if (transform.position.x < m_BoundLeft)
-        {
-            transform.position = new Vector3(m_BoundLeft,transform.position.y,transform.position.z);
-        }
-        if (transform.position.x > m_BoundRight)
-        {
-            transform.position = new Vector3(m_BoundRight, transform.position.y, transform.position.z);
-        }
     }
 
     private void Running()
@@ -66,13 +54,18 @@ public class PlayerController : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        LevelsData data = collision.GetComponent<LevelSelection>().m_LevelData;
-        m_OnLevelTrigger?.Invoke(data);
+        LevelsData _data = collision.GetComponent<LevelSelection>().m_LevelData;
+        m_OnLevelTrigger?.Invoke(_data);
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        LevelsData _data = collision.GetComponent<LevelSelection>().m_LevelData;
+        m_OnLevelTriggerUpdate?.Invoke(_data);
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        LevelsData data = collision.GetComponent<LevelSelection>().m_LevelData;
-        m_OnLevelTriggerExit?.Invoke(data);
+        m_OnLevelTriggerExit?.Invoke();
     }
 }
