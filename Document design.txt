@@ -1,0 +1,9 @@
+Contrôle:
+		A/D pour contrôller le joueur pour aller de gaughe a droite
+		et le clic gauche de la souris pour cliquer sur les bouttons
+		
+Histoire:
+		C'est l'histoire d'un roi des reliques ancienne de son royaume pour rétablir la paix de celui-ci
+		
+Résolution:
+			16:9 Aspect
