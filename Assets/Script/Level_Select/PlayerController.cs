@@ -20,6 +20,15 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         Running();
+        QuitGame();
+    }
+
+    private static void QuitGame()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
     }
 
     private void Running()
